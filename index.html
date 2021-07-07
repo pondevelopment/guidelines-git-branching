@@ -43,6 +43,8 @@
     const STYLE_BRANCH_D_COLOR = "#DBD5B5";
     const STYLE_BRANCH_D_COLOR_TEXT = "#DBD5B5";
     const STYLE_BRANCH_D_COLOR_DOT = "#DBD5B5";
+
+		const HASH_MERGE_SPRINT_ONE = "merge-sprint-one";
     
   
     // Get the graph container HTML element.
@@ -54,7 +56,7 @@
         jos: "Dennis Verweij <dennis.verweij@pon.com>",
     }
 
-    for (let idx = 0; idx < 5; idx++) {
+    for (let idx = 0; idx < 7; idx++) {
       let graphContainerClone = graphContainer.cloneNode(true);
       graphContainerClone.id = 'graph-container-' + idx
 
@@ -178,6 +180,43 @@
               author: author.jos,
             })
           ;
+
+        },
+        (showBody) => {
+          dev.merge({
+            branch: sprintOne,
+            commitOptions: {
+              subject: "Merge sprint 1",
+							body: showBody && `
+							  Work is done on the sprint, merge it back to dev
+							`,
+              hash: HASH_MERGE_SPRINT_ONE,
+              author: author.jos,
+              style: {
+                color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                message: {
+                  color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                },
+                dot: {
+                  color: STYLE_BRANCH_DEV_COLOR_DOT,
+                }
+              }
+            }
+          });
+        },
+		    (showBody) => {
+
+          mergeResult = main.merge({
+            branch: dev,
+            commitOptions: {
+              subject: "Merge dev to main",
+              body: showBody && `
+                Dev has been tested and approved, merge it to main.
+                Tag the main branch with the new version of the software
+              `,
+              author: author.jos,
+            }
+          }).tag("v1.0.0");
           
         }
       ].slice(0, step).map((x, index) => x(index == step - 1));
@@ -185,62 +224,9 @@
       return;
 
 
-     sprintOne = dev.branch({
-          name: "Sprint 1",
-          style: {
-              color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-              lineWidth: STYLE_BRANCH_SPRINT_LINE_WIDTH,
-              message: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-              }            
-          }
-      });
 
-      sprintOne
-        .commit({
-          subject: "Fixed #JIRA-123",
-          author: author.zeger,
-        })
-        .commit({
-          subject: "Fixed #JIRA-124",
-          author: author.berry,
-        })     
-        .commit({
-          subject: "Fixed #JIRA-125",
-          author: author.jos,
-        })
-        ;
 
-      const HASH_MERGE_SPRINT_ONE = "merge-sprint-one";
 
-      dev.merge({
-          branch: sprintOne, 
-          commitOptions: {
-              subject: "Merge sprint 1",
-              hash: HASH_MERGE_SPRINT_ONE,        
-              author: author.jos,
-              style: {
-                  color: STYLE_BRANCH_DEV_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_DEV_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_DEV_COLOR_DOT,
-                  }            
-              }            
-          }
-      });
-
-      mergeResult = main.merge({
-          branch: dev, 
-          commitOptions: {
-              subject: "Merge dev to main",
-              author: author.jos,
-          }
-      }).tag("v1.0.0");
 
       // parentCommitHash
 
