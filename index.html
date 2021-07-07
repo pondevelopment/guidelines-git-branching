@@ -78,8 +78,8 @@
     }
 
     // Simulate git commands with Gitgraph API.
-    const master = gitgraph.branch("master");
-    master.commit({        
+    const main = gitgraph.branch("main");
+    main.commit({        
         subject: "Initial commit",
         author: author.zeger,
     });
@@ -87,7 +87,7 @@
     /**
      * Create dev branch
      */
-    const dev = master.branch({
+    const dev = main.branch({
         name: "dev",
         style: {
             color: STYLE_BRANCH_DEV_COLOR,
@@ -158,10 +158,10 @@
         }
     });
    
-    mergeResult = master.merge({
+    mergeResult = main.merge({
         branch: dev, 
         commitOptions: {
-            subject: "Merge dev to master",
+            subject: "Merge dev to main",
             author: author.jos,
         }
     }).tag("v1.0.0");
@@ -360,10 +360,10 @@
         }
       });  
       
-    master.merge({
+    main.merge({
         branch: dev,
         commitOptions: {
-            subject: "Merge hotfix to master branch",
+            subject: "Merge hotfix to main branch",
             author: author.jos,
         }        
     }).tag("v1.1.0");    
@@ -605,10 +605,10 @@
         }
     });
    
-    master.merge({
+    main.merge({
         branch: dev, 
         commitOptions: {
-            subject: "Merge dev to master",
+            subject: "Merge dev to main",
             author: author.jos,
         }
     }).tag("v2.0.0");    
