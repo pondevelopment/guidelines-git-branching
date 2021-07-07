@@ -4,13 +4,32 @@
 <head>
 	<!-- Load the JS file -->
 	<script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
+  <style>
+    p {
+      font: 10pt sans-serif;
+      width: 70%;
+      height: 100%;
+    }
+
+    ol { 
+      
+    }
+
+    li {
+      padding-bottom: 25px;
+      padding-top: 25px;
+      margin: 5px;
+      border-color: gray;
+      border-width: 1px;
+      border-style: solid;
+    }
+  </style>
 </head>
 
 <body>
 	<!-- DOM element in which we'll mount our graph -->
-  <ul id="graph-list">
-     <li id="graph-container"></li>
-  </ul>
+  <ol id="graph-list">
+  </ol>
 	
 	<!-- https://gitgraphjs.com/stories/?path=/story/gitgraph-js-1-basic-usage--default -->
 
@@ -49,6 +68,7 @@
   
     // Get the graph container HTML element.
     const graphContainer = document.getElementById("graph-container");
+    document.create
    
     var author = {
         zeger: "Zeger Knops <zeger.knops@pon.com>",
@@ -56,9 +76,10 @@
         jos: "Dennis Verweij <dennis.verweij@pon.com>",
     }
 
-    for (let idx = 0; idx < 7; idx++) {
-      let graphContainerClone = graphContainer.cloneNode(true);
-      graphContainerClone.id = 'graph-container-' + idx
+    for (let idx = 1; idx < 7; idx++) {
+      let graphContainerClone = document.createElement("li");
+      graphContainerClone.id = 'graph-container-' + idx;
+      graphContainerClone.class = 'graph-container'
 
       document.getElementById("graph-list").appendChild(graphContainerClone);
 
