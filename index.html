@@ -68,15 +68,14 @@
   
     // Get the graph container HTML element.
     const graphContainer = document.getElementById("graph-container");
-    document.create
-   
+
     var author = {
         zeger: "Zeger Knops <zeger.knops@pon.com>",
         berry: "Berry Piest <berry.piest@pon.com>",
         jos: "Dennis Verweij <dennis.verweij@pon.com>",
     }
 
-    for (let idx = 1; idx < 7; idx++) {
+    for (let idx = 1; idx < 9; idx++) {
       let graphContainerClone = document.createElement("li");
       graphContainerClone.id = 'graph-container-' + idx;
       graphContainerClone.class = 'graph-container'
@@ -92,7 +91,8 @@
 	    let gitgrap;
       let main;
       let dev;
-      let sprintOne;
+      let sprintOne, sprintTwo;
+      let branchA, branchB, branchC;
       const showBody = true;
 
       [
@@ -239,66 +239,84 @@
             }
           }).tag("v1.0.0");
           
+        },
+        (showBody) => {
+          /**
+          * Second sprint
+          */
+          sprintTwo = gitgraph.branch({
+            name: "Sprint 2",
+            from: HASH_MERGE_SPRINT_ONE,
+            style: {
+              color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+              lineWidth: STYLE_BRANCH_SPRINT_LINE_WIDTH,
+              message: {
+                color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+              },
+              dot: {
+                color: STYLE_BRANCH_SPRINT_COLOR_DOT, 
+              }
+            }
+          });
+
+          sprintTwo.commit({
+            subject: "Sprint 2 branch",
+            body: showBody && `
+              Create the branch for the second sprint
+            `,
+            author: author.zeger,
+          });
+
+        },
+        (showBody) => {
+
+          branchA = sprintTwo.branch({
+            name: "Feature #JIRA-223", from: HASH_MERGE_SPRINT_ONE,
+            style: { color: STYLE_BRANCH_A_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
+          });
+
+          // Dev cycle 1
+          branchA
+            .commit({
+              subject: "+wrote some code #JIRA-223",
+              body: showBody && `
+                Separate branch for sprint 2 to work on a specfic feature
+              `,
+              author: author.zeger,
+              style: {
+                color: STYLE_BRANCH_A_COLOR_TEXT,
+                message: {
+                  color: STYLE_BRANCH_A_COLOR_TEXT,
+                },
+                dot: {
+                  color: STYLE_BRANCH_A_COLOR_DOT,
+                }
+              }
+            });
+        },
+        (showBody) => {
+
+          branchB = gitgraph.branch({
+            name: "Bugfix #JIRA-224", from: HASH_MERGE_SPRINT_ONE,
+            style: { color: STYLE_BRANCH_B_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
+          });
+          
+          branchC = gitgraph.branch({
+            name: "Task #JIRA-225", from: HASH_MERGE_SPRINT_ONE,
+            style: { color: STYLE_BRANCH_C_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
+          });
         }
       ].slice(0, step).map((x, index) => x(index == step - 1));
 
       return;
 
-
-
-
-
-
       // parentCommitHash
 
-      /**
-       * Second sprint
-       */   
-      const branchA = gitgraph.branch({
-        name: "Feature #JIRA-223", from: HASH_MERGE_SPRINT_ONE,
-        style: { color: STYLE_BRANCH_A_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
-      });
 
-      const branchB = gitgraph.branch({ 
-        name: "Bugfix #JIRA-224", from: HASH_MERGE_SPRINT_ONE,
-        style: { color: STYLE_BRANCH_B_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
-      });
 
-      const branchC = gitgraph.branch({
-        name: "Task #JIRA-225", from: HASH_MERGE_SPRINT_ONE,
-        style: { color: STYLE_BRANCH_C_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
-      });
+       
 
-      const sprintTwo = gitgraph.branch({ 
-          name: "Sprint 2", 
-          from: HASH_MERGE_SPRINT_ONE,
-          style: {
-              color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-              lineWidth: STYLE_BRANCH_SPRINT_LINE_WIDTH,
-              message: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-              }            
-          }
-      });
 
-      // Dev cycle 1
-      branchA
-        .commit({        
-          subject: "+wrote some code #JIRA-223",
-          author: author.zeger,
-          style: {
-              color: STYLE_BRANCH_A_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_A_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_A_COLOR_DOT,
-              }            
-          }
-        });  
 
       branchB
         .commit({
