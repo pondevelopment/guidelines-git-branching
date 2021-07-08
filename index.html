@@ -495,13 +495,16 @@
             }).tag("v1.1.0");    
 
           },
-          (showBody) => {
+          (showBody) => { // Step 16
 
             sprintTwo.merge({
                 branch: dev,
                 commitOptions: {
                     subject: "Merge hotfix to sprint 2 branch",
                     author: author.jos,
+                    body: showBody && `
+                      Merge hotfix to sprint branch
+                    `,
                     style: {
                         color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
                         message: {
