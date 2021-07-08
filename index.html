@@ -76,6 +76,11 @@
     const STYLE_BRANCH_SPRINT_COLOR_TEXT = "#AAFF00";
     const STYLE_BRANCH_SPRINT_COLOR_DOT = "#AAFF00";
     
+    const STYLE_BRANCH_HOTFIX_LINE_WIDTH = 6;
+    const STYLE_BRANCH_HOTFIX_COLOR = "#00AAFF";
+    const STYLE_BRANCH_HOTFIX_COLOR_TEXT = "#00AAFF";
+    const STYLE_BRANCH_HOTFIX_COLOR_DOT = "#00AAFF";
+
     const STYLE_BRANCH_A_COLOR = "#FCAB10";
     const STYLE_BRANCH_A_COLOR_TEXT = "#FCAB10";
     const STYLE_BRANCH_A_COLOR_DOT = "#FCAB10";
@@ -127,7 +132,7 @@
       let main;
       let dev;
       let sprintOne, sprintTwo;
-      let branchA, branchB, branchC, branchD;
+      let branchA, branchB, branchC, branchD, branchHotfix;
       const showBody = true;
 
       [
@@ -239,15 +244,15 @@
 
           sprintOne
             .commit({
-              subject: "Fixed #JIRA-123",
+              subject: "Fixed JIRA-123",
               author: author.zeger,
             })
             .commit({
-              subject: "Fixed #JIRA-124",
+              subject: "Fixed JIRA-124",
               author: author.berry,
             })
             .commit({
-              subject: "Fixed #JIRA-125",
+              subject: "Fixed JIRA-125",
 						  body: showBody && `
 						    Developers working on the current sprint and commit their code
 						  `,
@@ -334,14 +339,14 @@
         (showBody) => {
 
           branchA = sprintTwo.branch({
-            name: "Feature #JIRA-223", from: HASH_MERGE_SPRINT_ONE,
+            name: "Feature JIRA-223", from: HASH_MERGE_SPRINT_ONE,
             style: { color: STYLE_BRANCH_A_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
           });
 
           // Dev cycle 1
           branchA
             .commit({
-              subject: "+wrote some code #JIRA-223",
+              subject: "+wrote some code JIRA-223",
               body: showBody && `
                 Separate branch for sprint 2 to work on a specfic feature
               `,
@@ -360,13 +365,13 @@
         (showBody) => {
 
           branchB = sprintTwo.branch({
-            name: "Bugfix #JIRA-224", from: HASH_MERGE_SPRINT_ONE,
+            name: "Bugfix JIRA-224", from: HASH_MERGE_SPRINT_ONE,
             style: { color: STYLE_BRANCH_B_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
           });
 
           branchB
             .commit({
-              subject: "+wrote some code #JIRA-224",
+              subject: "+wrote some code JIRA-224",
 							body: showBody && `
 						  	Separate branch for sprint 2 to fix a bug
 							`,
@@ -386,13 +391,13 @@
 				(showBody) => {
 
           branchC = sprintTwo.branch({
-            name: "Task #JIRA-225", from: HASH_MERGE_SPRINT_ONE,
+            name: "Task JIRA-225", from: HASH_MERGE_SPRINT_ONE,
             style: { color: STYLE_BRANCH_C_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
           });
 
           branchC
             .commit({
-              subject: "+wrote some code #JIRA-225",
+              subject: "+wrote some code JIRA-225",
               body: showBody && `
                 Separate branch for sprint 2 to work on a task
               `,
@@ -414,7 +419,7 @@
             // Dev cycle 2
             branchA
               .commit({
-                subject: "*fixed some code #JIRA-223",
+                subject: "*fixed some code JIRA-223",
                 author: author.zeger,
                 style: {
                     color: STYLE_BRANCH_A_COLOR_TEXT,
@@ -429,7 +434,7 @@
 
             branchB
               .commit({
-                subject: "*fixed some code #JIRA-224",
+                subject: "*fixed some code JIRA-224",
                 author: author.berry,
                 style: {
                     color: STYLE_BRANCH_B_COLOR_TEXT,
@@ -444,7 +449,7 @@
 
             branchC
               .commit({
-                subject: "*fixed some code #JIRA-225",
+                subject: "*fixed some code JIRA-225",
                 author: author.jos,
                 body: showBody && `
                   Developers working on their tasks and commiting the code
@@ -466,7 +471,7 @@
             sprintTwo.merge({
                 branch: branchC,
                 commitOptions: {
-                    subject: "Merge 'Task #JIRA-225' to sprint 2 branch",
+                    subject: "Merge 'Task JIRA-225' to sprint 2 branch",
                     author: author.jos,
                     body: showBody && `
                       Task done, code is merged back to sprint branch
@@ -526,21 +531,26 @@
           },
           (showBody) => { // Step 14
 
+            branchHotfix = main.branch({
+              name: "hotfix",
+              style: { color: STYLE_BRANCH_HOTFIX_COLOR, lineWidth: STYLE_BRANCH_HOTFIX_LINE_WIDTH },
+            });
+
             // Hotfix
-            dev
+			      branchHotfix
               .commit({
                 subject: "*hotfix",
                 author: author.jos,
                 body: showBody && `
-                  Problem on live environment, hotfix build and tested on dev branch
+                  Problem on live environment, hotfix build and tested on hotfix branch
                 `,
                 style: {
-                    color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                    color: STYLE_BRANCH_HOTFIX_COLOR_TEXT,
                     message: {
-                        color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                        color: STYLE_BRANCH_HOTFIX_COLOR_TEXT,
                     },
                     dot: {
-                        color: STYLE_BRANCH_DEV_COLOR_DOT,
+                        color: STYLE_BRANCH_HOTFIX_COLOR_DOT,
                     }            
                 }
               }); 
@@ -549,7 +559,7 @@
           (showBody) => { // Step 15
 
             main.merge({
-                branch: dev,
+                branch: branchHotfix,
                 commitOptions: {
                     subject: "Merge hotfix to main branch",
                     author: author.jos,
@@ -561,6 +571,29 @@
 
           },
           (showBody) => { // Step 16
+
+            dev.merge({
+                branch: main,
+                commitOptions: {
+                    subject: "Merge hotfix to dev branch",
+                    author: author.jos,
+                    body: showBody && `
+                      Merge hotfix to dev branch
+                    `,
+                    style: {
+                        color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_DEV_COLOR_DOT,
+                        }            
+                    }
+                }        
+            });
+
+          },
+          (showBody) => { // Step 17
 
             sprintTwo.merge({
                 branch: dev,
@@ -583,7 +616,7 @@
             });
 
           },
-          (showBody) => { // Step 17
+          (showBody) => { // Step 18
 
             branchA.merge({
                 branch: sprintTwo,
@@ -640,11 +673,11 @@
             });    
 
           },
-          (showBody) => { // Step 18
+          (showBody) => { // Step 19
 
             branchA
               .commit({
-                subject: "-removed some code #JIRA-223",
+                subject: "-removed some code JIRA-223",
                 author: author.zeger,
                 style: {
                     color: STYLE_BRANCH_A_COLOR_TEXT,
@@ -661,7 +694,7 @@
             sprintTwo.merge({
                 branch: branchA,
                 commitOptions: {
-                    subject: "Merge 'Feature #JIRA-223' to sprint 2 branch",
+                    subject: "Merge 'Feature JIRA-223' to sprint 2 branch",
                     author: author.zeger,
 										body: showBody && `
                       Issue resolved and coding done, merge changes to sprint branch
@@ -680,16 +713,16 @@
             });   
 
           },
-          (showBody) => { // Step 19
+          (showBody) => { // Step 20
       
             branchD = gitgraph.branch({
-              name: "Feature #JIRA-228", from: HASH_MERGE_BRANCH_A,
+              name: "Feature JIRA-228", from: HASH_MERGE_BRANCH_A,
               style: { color: STYLE_BRANCH_D_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
             });
 
             branchD
               .commit({
-                subject: "-removed some code #JIRA-228",
+                subject: "-removed some code JIRA-228",
                 author: author.zeger,
                 body: showBody && `
                   New issue picked up, branch from sprint branch to start coding
@@ -706,11 +739,11 @@
               });    
     
           },
-          (showBody) => { // Step 20
+          (showBody) => { // Step 21
 
             branchB
               .commit({
-                subject: "-removed some code #JIRA-224",
+                subject: "-removed some code JIRA-224",
                 author: author.berry,
                 style: {
                     color: STYLE_BRANCH_B_COLOR_TEXT,
@@ -725,7 +758,7 @@
 
             branchC
               .commit({
-                subject: "-removed some code #JIRA-225224",
+                subject: "-removed some code JIRA-225224",
                 author: author.jos,
                 style: {
                     color: STYLE_BRANCH_C_COLOR_TEXT,
@@ -740,7 +773,7 @@
 
             branchD
               .commit({
-                subject: "*bugfix #JIRA-228",
+                subject: "*bugfix JIRA-228",
                 author: author.zeger,
 								body: showBody && `
 								  Developers working on their issues and committing to the issue branch
@@ -757,7 +790,7 @@
               }); 
 
           },
-          (showBody) => { // Step 21
+          (showBody) => { // Step 22
 
             branchB.merge({
                 branch: sprintTwo,
@@ -804,12 +837,12 @@
             `
 
           },
-          (showBody) => { // Step 22
+          (showBody) => { // Step 23
 
             sprintTwo.merge({
                 branch: branchB,
                 commitOptions: {
-                    subject: "Merge 'Bugfix #JIRA-224' to sprint 2 branch",
+                    subject: "Merge 'Bugfix JIRA-224' to sprint 2 branch",
                     author: author.berry,
                     style: {
                         color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
@@ -826,7 +859,7 @@
             sprintTwo.merge({
                 branch: branchC,
                 commitOptions: {
-                    subject: "Merge 'Task #JIRA-225' to sprint 2 branch",
+                    subject: "Merge 'Task JIRA-225' to sprint 2 branch",
                     author: author.jos,
                     style: {
                         color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
@@ -843,7 +876,7 @@
             sprintTwo.merge({
                 branch: branchD,
                 commitOptions: {
-                    subject: "Merge 'Task #JIRA-228' to sprint 2 branch",
+                    subject: "Merge 'Task JIRA-228' to sprint 2 branch",
                     author: author.jos,
                     body: showBody && `
                       All issues coded, code is merged back into the sprint branch
@@ -865,7 +898,7 @@
             `
           
           },
-          (showBody) => { // Step 23
+          (showBody) => { // Step 24
           
             dev.merge({
                 branch: sprintTwo, 
@@ -888,7 +921,7 @@
             });
 
           },
-          (showBody) => { // Step 24
+          (showBody) => { // Step 25
 
             main.merge({
                 branch: dev, 
@@ -902,11 +935,11 @@
             }).tag("v2.0.0");  
 
           },
-          (showBody) => { // Step 25
+          (showBody) => { // Step 26
           },
-          (showBody) => { // Step 26 
+          (showBody) => { // Step 27 
           },
-          (showBody) => { // Step 27
+          (showBody) => { // Step 28
           }
       ].slice(0, step).map((x, index) => x(index == step - 1));
 
