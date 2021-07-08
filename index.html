@@ -168,7 +168,8 @@
 
           textContainer.innerHTML = `
             Start of the project is here. Setup a git repository, check for license and
-            add the developers.
+            add the developers. Setup the main branch, this will be the branch containing 
+            the lastest stable version of the software.
           `
 
         }, 
@@ -199,8 +200,8 @@
           });
 
 					textContainer.innerHTML = `
-            Setup the main branch, this will be the branch containing the lastest stable version
-            of the software.
+            Setup the development branch, this will be the branch containing the version
+            which will contain the results of a finished sprint, ready to be tested.
 					`
         },
         (showBody) => {
@@ -228,7 +229,9 @@
           });
 
           textContainer.innerHTML = `
-
+            For a sprint a seperate branch is created, this will be used to merge all the
+            code the developers are writing for this specific sprint. This branch is based on the 
+            latest version of the development branch.
           `
 
         },
@@ -252,6 +255,12 @@
             })
           ;
 
+					textContainer.innerHTML = `
+            Sprint 1 is a simple sprint, several developers have been working on 4 issues and
+            commit their results one by one to the sprint branch. Any merge issues have to 
+            be resolved by the developer.
+					`
+
         },
         (showBody) => {
           dev.merge({
@@ -274,6 +283,10 @@
               }
             }
           });
+
+          textContainer.innerHTML = `
+          
+          `
         },
 		    (showBody) => {
 
