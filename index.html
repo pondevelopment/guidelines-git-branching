@@ -22,7 +22,6 @@
 			height: 120%;
 			padding-top: 10px;
 		}
-    
 	</style>
 
 	<title>Git branching and merging, a visual story</title>
@@ -35,7 +34,8 @@
 			<div>
 				<h3 class="float-md-start mb-0">Pon Digital Solutions - tutorial</h3>
 				<nav class="nav nav-masthead justify-content-center float-md-end">
-					<a class="nav-link active" aria-current="page" href="https://github.com/pondigitalsolutions/guidelines-git-branching">Github repository</a>
+					<a class="nav-link active" aria-current="page"
+						href="https://github.com/pondigitalsolutions/guidelines-git-branching">Github repository</a>
 				</nav>
 			</div>
 		</header>
@@ -759,6 +759,53 @@
           },
           (showBody) => { // Step 21
 
+            branchB.merge({
+                branch: sprintTwo,
+                commitOptions: {
+                    subject: "Merge hotfix to feature branch",
+                    author: author.berry,
+                    style: {
+                        color: STYLE_BRANCH_B_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_B_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_B_COLOR_DOT,
+                        }            
+                    }
+                }        
+            });    
+
+            branchC.merge({
+                branch: sprintTwo,
+                commitOptions: {
+                    subject: "Merge hotfix to feature branch",
+                    author: author.jos,
+                    body: showBody && `
+										  Before the feature branches can commit to the sprint branch they
+                      must merge all the changes to their own branch.
+										`,
+                    style: {
+                        color: STYLE_BRANCH_C_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_C_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_C_COLOR_DOT,
+                        }            
+                    }
+                }        
+            }); 
+
+            textContainer.innerHTML = `
+              The developers of the bugfix and task branches must merge the code from
+              the sprint to their own code, and fix any merge issues locally, before
+              they can merge their final code to the sprint branch.
+            `
+
+          },
+          (showBody) => { // Step 22
+
             sprintTwo.merge({
                 branch: branchB,
                 commitOptions: {
@@ -811,10 +858,14 @@
                         }            
                     }
                 }
-            });     
+            });
+
+            textContainer.innerHTML = `
+            
+            `
           
           },
-          (showBody) => { // Step 22
+          (showBody) => { // Step 23
           
             dev.merge({
                 branch: sprintTwo, 
@@ -837,7 +888,7 @@
             });
 
           },
-          (showBody) => { // Step 23
+          (showBody) => { // Step 24
 
             main.merge({
                 branch: dev, 
@@ -851,11 +902,11 @@
             }).tag("v2.0.0");  
 
           },
-          (showBody) => { // Step 24
+          (showBody) => { // Step 25
           },
-          (showBody) => { // Step 25 
+          (showBody) => { // Step 26 
           },
-          (showBody) => { // Step 26
+          (showBody) => { // Step 27
           }
       ].slice(0, step).map((x, index) => x(index == step - 1));
 
