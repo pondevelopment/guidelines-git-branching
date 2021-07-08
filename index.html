@@ -73,7 +73,7 @@
         jos: "Dennis Verweij <dennis.verweij@pon.com>",
     }
 
-    for (let idx = 1; idx < 20; idx++) {
+    for (let idx = 1; idx < 25; idx++) {
       let graphContainerClone = document.createElement("li");
       graphContainerClone.id = 'graph-container-' + idx;
       graphContainerClone.class = 'graph-container'
@@ -641,147 +641,158 @@
               });    
     
           },
-          (showBody) => {
+          (showBody) => { // Step 20
+
+            branchB
+              .commit({
+                subject: "-removed some code #JIRA-224",
+                author: author.berry,
+                style: {
+                    color: STYLE_BRANCH_B_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_B_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_B_COLOR_DOT,
+                    }
+                }
+              });
+
+            branchC
+              .commit({
+                subject: "-removed some code #JIRA-225224",
+                author: author.jos,
+                style: {
+                    color: STYLE_BRANCH_C_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_C_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_C_COLOR_DOT,
+                    }
+                }
+              });       
+
+            branchD
+              .commit({
+                subject: "*bugfix #JIRA-228",
+                author: author.zeger,
+								body: showBody && `
+								  Developers working on their issues and committing to the issue branch
+								`,
+                style: {
+                    color: STYLE_BRANCH_D_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_D_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_D_COLOR_DOT,
+                    }
+                }
+              }); 
+
           },
-          (showBody) => {
+          (showBody) => { // Step 21
+
+            sprintTwo.merge({
+                branch: branchB,
+                commitOptions: {
+                    subject: "Merge 'Bugfix #JIRA-224' to sprint 2 branch",
+                    author: author.berry,
+                    style: {
+                        color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_DOT,
+                        }            
+                    }
+                }
+            });    
+
+            sprintTwo.merge({
+                branch: branchC,
+                commitOptions: {
+                    subject: "Merge 'Task #JIRA-225' to sprint 2 branch",
+                    author: author.jos,
+                    style: {
+                        color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_DOT,
+                        }            
+                    }
+                }
+            });    
+
+            sprintTwo.merge({
+                branch: branchD,
+                commitOptions: {
+                    subject: "Merge 'Task #JIRA-228' to sprint 2 branch",
+                    author: author.jos,
+                    body: showBody && `
+                      All issues coded, code is merged back into the sprint branch
+                    `,
+                    style: {
+                        color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_DOT,
+                        }            
+                    }
+                }
+            });     
+          
           },
-          (showBody) => {
+          (showBody) => { // Step 22
+          
+            dev.merge({
+                branch: sprintTwo, 
+                commitOptions: {
+                    subject: "Merge sprint 2",
+                    author: author.jos,
+										body: showBody && `
+                        Test the sprint branch and merge to dev
+										`,
+                    style: {
+                        color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_DEV_COLOR_DOT,
+                        }            
+                    }
+                }
+            });
+
+            main.merge({
+                branch: dev, 
+                commitOptions: {
+                    subject: "Merge dev to main",
+                    author: author.jos,
+                }
+            }).tag("v2.0.0");  
+
+          },
+          (showBody) => { // Step 23
+          },
+          (showBody) => { // Step 24
+          },
+          (showBody) => { // Step 25 
+          },
+          (showBody) => { // Step 26
           }
       ].slice(0, step).map((x, index) => x(index == step - 1));
 
-      return;
+   
 
-      /**
-       * Todo steps below
-       */
-
-
- 
-
-      // Dev cycle 3    
-
-
-
-      branchB
-        .commit({
-          subject: "-removed some code #JIRA-224",
-          author: author.berry,
-          style: {
-              color: STYLE_BRANCH_B_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_B_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_B_COLOR_DOT,
-              }
-          }
-        });
-
-      branchC
-        .commit({
-          subject: "-removed some code #JIRA-225224",
-          author: author.jos,
-          style: {
-              color: STYLE_BRANCH_C_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_C_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_C_COLOR_DOT,
-              }
-          }
-        });       
-
-      branchD
-        .commit({
-          subject: "*bugfix #JIRA-228",
-          author: author.zeger,
-          style: {
-              color: STYLE_BRANCH_D_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_D_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_D_COLOR_DOT,
-              }
-          }
-        });        
-
-      sprintTwo.merge({
-          branch: branchB,
-          commitOptions: {
-              subject: "Merge 'Bugfix #JIRA-224' to sprint 2 branch",
-              author: author.berry,
-              style: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-                  }            
-              }
-          }
-      });    
-
-      sprintTwo.merge({
-          branch: branchC,
-          commitOptions: {
-              subject: "Merge 'Task #JIRA-225' to sprint 2 branch",
-              author: author.jos,
-              style: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-                  }            
-              }
-          }
-      });    
-
-      sprintTwo.merge({
-          branch: branchD,
-          commitOptions: {
-              subject: "Merge 'Task #JIRA-228' to sprint 2 branch",
-              author: author.jos,
-              style: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-                  }            
-              }
-          }
-      });        
-
-      dev.merge({
-          branch: sprintTwo, 
-          commitOptions: {
-              subject: "Merge sprint 2",
-              author: author.jos,
-              style: {
-                  color: STYLE_BRANCH_DEV_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_DEV_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_DEV_COLOR_DOT,
-                  }            
-              }
-          }
-      });
-
-      main.merge({
-          branch: dev, 
-          commitOptions: {
-              subject: "Merge dev to main",
-              author: author.jos,
-          }
-      }).tag("v2.0.0");    
+  
     }
     
 	</script>
