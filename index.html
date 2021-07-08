@@ -73,7 +73,7 @@
         jos: "Dennis Verweij <dennis.verweij@pon.com>",
     }
 
-    for (let idx = 1; idx < 25; idx++) {
+    for (let idx = 1; idx < 24; idx++) {
       let graphContainerClone = document.createElement("li");
       graphContainerClone.id = 'graph-container-' + idx;
       graphContainerClone.class = 'graph-container'
@@ -771,16 +771,20 @@
                 }
             });
 
+          },
+          (showBody) => { // Step 23
+
             main.merge({
                 branch: dev, 
                 commitOptions: {
                     subject: "Merge dev to main",
                     author: author.jos,
+                    body: showBody && `
+                      Merge dev to main and tag with new version
+                    `,
                 }
             }).tag("v2.0.0");  
 
-          },
-          (showBody) => { // Step 23
           },
           (showBody) => { // Step 24
           },
