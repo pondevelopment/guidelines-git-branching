@@ -2,26 +2,28 @@
 <html>
 
 <head>
-	<!-- Load the JS file -->
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
 	<style>
-		p {
+    /**
+     * The body tag of the graph generator is buggy and is hiding text 
+     * following code patches this issue
+     */
+		li p {
 			font: 10pt sans-serif;
 			width: 70%;
-			height: 100%;
-		}
-
-		ol {}
-
-		li {
-			padding-bottom: 25px;
-			padding-top: 25px;
-			margin: 5px;
-			border-color: gray;
-			border-width: 1px;
-			border-style: solid;
+			height: 120%;
+      padding-top: 10px;
 		}
 	</style>
+
+  <title>Git branching and merging, a visual story</title>
 </head>
 
 <body>
