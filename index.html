@@ -518,7 +518,7 @@
             });
 
           },
-          (showBody) => {
+          (showBody) => { // Step 17
 
             branchA.merge({
                 branch: sprintTwo,
@@ -559,6 +559,9 @@
                 commitOptions: {
                     subject: "Merge hotfix to feature branch",
                     author: author.jos,
+                    body: showBody && `
+										  Feature branches also require the hotfix
+										`,
                     style: {
                         color: STYLE_BRANCH_C_COLOR_TEXT,
                         message: {
