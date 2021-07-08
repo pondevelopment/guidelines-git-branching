@@ -42,13 +42,13 @@
 			<h1>Branching and merging, a visual story</h1>
 			<p class="lead">
         <!-- DOM element in which we'll mount our graph -->
-        <ol id="graph-list">
+        <ol id="graph-list" class="list-group list-group-numbered">
         </ol>
 			</p>
 		</main>
 
 		<footer class="mt-auto text-white-50">
-			<p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a
+			<p>Template based on <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a
 					href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
 		</footer>
 	</div>
@@ -100,13 +100,19 @@
     }
 
     for (let idx = 1; idx < 24; idx++) {
-      let graphContainerClone = document.createElement("li");
-      graphContainerClone.id = 'graph-container-' + idx;
-      graphContainerClone.class = 'graph-container'
+      let ulElement = document.createElement("ul");
+      let liElement = document.createElement("li");
 
-      document.getElementById("graph-list").appendChild(graphContainerClone);
+      ulElement.class= "list-group list-group-horizontal";
+      liElement.class= "list-group-item";
 
-      buildGraph(graphContainerClone, idx);
+      liElement.id = 'graph-container-' + idx;
+
+      ulElement.appendChild(liElement);
+
+      document.getElementById("graph-list").appendChild(document.createElement("li").appendChild(ulElement));
+
+      buildGraph(liElement, idx);
     }
 
     function buildGraph(graphContainer, step) {
