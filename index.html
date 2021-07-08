@@ -4,33 +4,31 @@
 <head>
 	<!-- Load the JS file -->
 	<script src="https://cdn.jsdelivr.net/npm/@gitgraph/js"></script>
-  <style>
-    p {
-      font: 10pt sans-serif;
-      width: 70%;
-      height: 100%;
-    }
+	<style>
+		p {
+			font: 10pt sans-serif;
+			width: 70%;
+			height: 100%;
+		}
 
-    ol { 
-      
-    }
+		ol {}
 
-    li {
-      padding-bottom: 25px;
-      padding-top: 25px;
-      margin: 5px;
-      border-color: gray;
-      border-width: 1px;
-      border-style: solid;
-    }
-  </style>
+		li {
+			padding-bottom: 25px;
+			padding-top: 25px;
+			margin: 5px;
+			border-color: gray;
+			border-width: 1px;
+			border-style: solid;
+		}
+	</style>
 </head>
 
 <body>
 	<!-- DOM element in which we'll mount our graph -->
-  <ol id="graph-list">
-  </ol>
-	
+	<ol id="graph-list">
+	</ol>
+
 	<!-- https://gitgraphjs.com/stories/?path=/story/gitgraph-js-1-basic-usage--default -->
 
 	<!-- Use the `GitgraphJS` global variable to create your graph -->
@@ -75,7 +73,7 @@
         jos: "Dennis Verweij <dennis.verweij@pon.com>",
     }
 
-    for (let idx = 1; idx < 11; idx++) {
+    for (let idx = 1; idx < 20; idx++) {
       let graphContainerClone = document.createElement("li");
       graphContainerClone.id = 'graph-container-' + idx;
       graphContainerClone.class = 'graph-container'
@@ -345,7 +343,227 @@
               }
             });
 
-        }
+          },
+          (showBody) => {
+
+            // Dev cycle 2
+            branchA
+              .commit({
+                subject: "*fixed some code #JIRA-223",
+                author: author.zeger,
+                style: {
+                    color: STYLE_BRANCH_A_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_A_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_A_COLOR_DOT,
+                    }
+                }
+              });       
+
+            branchB
+              .commit({
+                subject: "*fixed some code #JIRA-224",
+                author: author.berry,
+                style: {
+                    color: STYLE_BRANCH_B_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_B_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_B_COLOR_DOT,
+                    }
+                }
+              }); 
+
+            branchC
+              .commit({
+                subject: "*fixed some code #JIRA-225",
+                author: author.jos,
+                style: {
+                    color: STYLE_BRANCH_C_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_C_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_C_COLOR_DOT,
+                    }
+                }
+              });        
+
+          },
+          (showBody) => {
+
+            sprintTwo.merge({
+                branch: branchC,
+                commitOptions: {
+                    subject: "Merge 'Feature #JIRA-223' to sprint 2 branch",
+                    author: author.jos,
+                    style: {
+                        color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_DOT,
+                        }
+                    }
+                }
+            });      
+
+          },
+          (showBody) => {
+
+            branchA.merge({
+                branch: sprintTwo,
+                commitOptions: {
+                    subject: "Merge sprint 2",
+                    author: author.zeger,
+                    style: {
+                        color: STYLE_BRANCH_A_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_A_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_A_COLOR_DOT,
+                        }
+                    }
+                }
+            });       
+
+            branchB.merge({
+                branch: sprintTwo,
+                commitOptions: {
+                    subject: "Merge sprint 2",
+                    author: author.zeger,
+                    style: {
+                        color: STYLE_BRANCH_B_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_B_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_B_COLOR_DOT,
+                        }
+                    }
+                }
+            });  
+
+          },
+          (showBody) => {
+
+            // Hotfix
+            dev
+              .commit({
+                subject: "*hotfix",
+                author: author.jos,
+                style: {
+                    color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_DEV_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_DEV_COLOR_DOT,
+                    }            
+                }
+              }); 
+
+          },
+          (showBody) => {
+
+            main.merge({
+                branch: dev,
+                commitOptions: {
+                    subject: "Merge hotfix to main branch",
+                    author: author.jos,
+                }        
+            }).tag("v1.1.0");    
+
+          },
+          (showBody) => {
+
+            sprintTwo.merge({
+                branch: dev,
+                commitOptions: {
+                    subject: "Merge hotfix to sprint 2 branch",
+                    author: author.jos,
+                    style: {
+                        color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_DOT,
+                        }            
+                    }
+                }        
+            });
+
+          },
+          (showBody) => {
+
+            branchA.merge({
+                branch: sprintTwo,
+                commitOptions: {
+                    subject: "Merge hotfix to feature branch",
+                    author: author.zeger,
+                    style: {
+                        color: STYLE_BRANCH_A_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_A_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_A_COLOR_DOT,
+                        }            
+                    }
+                }        
+            });    
+
+            branchB.merge({
+                branch: sprintTwo,
+                commitOptions: {
+                    subject: "Merge hotfix to feature branch",
+                    author: author.berry,
+                    style: {
+                        color: STYLE_BRANCH_B_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_B_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_B_COLOR_DOT,
+                        }            
+                    }
+                }        
+            });    
+
+            branchC.merge({
+                branch: sprintTwo,
+                commitOptions: {
+                    subject: "Merge hotfix to feature branch",
+                    author: author.jos,
+                    style: {
+                        color: STYLE_BRANCH_C_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_C_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_C_COLOR_DOT,
+                        }            
+                    }
+                }        
+            });    
+
+          },
+          (showBody) => {
+          },
+          (showBody) => {
+          },
+          (showBody) => {
+          },
+          (showBody) => {
+          },
+          (showBody) => {
+          }
       ].slice(0, step).map((x, index) => x(index == step - 1));
 
       return;
@@ -361,194 +579,16 @@
 
 
 
-      // Dev cycle 2
-      branchA
-        .commit({
-          subject: "*fixed some code #JIRA-223",
-          author: author.zeger,
-          style: {
-              color: STYLE_BRANCH_A_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_A_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_A_COLOR_DOT,
-              }
-          }
-        });       
 
-      branchB
-        .commit({
-          subject: "*fixed some code #JIRA-224",
-          author: author.berry,
-          style: {
-              color: STYLE_BRANCH_B_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_B_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_B_COLOR_DOT,
-              }
-          }
-        }); 
 
-      branchC
-        .commit({
-          subject: "*fixed some code #JIRA-225",
-          author: author.jos,
-          style: {
-              color: STYLE_BRANCH_C_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_C_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_C_COLOR_DOT,
-              }
-          }
-        });        
 
-      sprintTwo.merge({
-          branch: branchC,
-          commitOptions: {
-              subject: "Merge 'Feature #JIRA-223' to sprint 2 branch",
-              author: author.jos,
-              style: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-                  }
-              }
-          }
-      });      
 
-      branchA.merge({
-          branch: sprintTwo,
-          commitOptions: {
-              subject: "Merge sprint 2",
-              author: author.zeger,
-              style: {
-                  color: STYLE_BRANCH_A_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_A_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_A_COLOR_DOT,
-                  }
-              }
-          }
-      });       
+ 
 
-      branchB.merge({
-          branch: sprintTwo,
-          commitOptions: {
-              subject: "Merge sprint 2",
-              author: author.zeger,
-              style: {
-                  color: STYLE_BRANCH_B_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_B_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_B_COLOR_DOT,
-                  }
-              }
-          }
-      });  
 
-      // Hotfix
-      dev
-        .commit({
-          subject: "*hotfix",
-          author: author.jos,
-          style: {
-              color: STYLE_BRANCH_DEV_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_DEV_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_DEV_COLOR_DOT,
-              }            
-          }
-        });  
 
-      main.merge({
-          branch: dev,
-          commitOptions: {
-              subject: "Merge hotfix to main branch",
-              author: author.jos,
-          }        
-      }).tag("v1.1.0");    
 
-      sprintTwo.merge({
-          branch: dev,
-          commitOptions: {
-              subject: "Merge hotfix to sprint 2 branch",
-              author: author.jos,
-              style: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-                  }            
-              }
-          }        
-      });
 
-      branchA.merge({
-          branch: sprintTwo,
-          commitOptions: {
-              subject: "Merge hotfix to feature branch",
-              author: author.zeger,
-              style: {
-                  color: STYLE_BRANCH_A_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_A_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_A_COLOR_DOT,
-                  }            
-              }
-          }        
-      });    
-
-      branchB.merge({
-          branch: sprintTwo,
-          commitOptions: {
-              subject: "Merge hotfix to feature branch",
-              author: author.berry,
-              style: {
-                  color: STYLE_BRANCH_B_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_B_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_B_COLOR_DOT,
-                  }            
-              }
-          }        
-      });    
-
-      branchC.merge({
-          branch: sprintTwo,
-          commitOptions: {
-              subject: "Merge hotfix to feature branch",
-              author: author.jos,
-              style: {
-                  color: STYLE_BRANCH_C_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_C_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_C_COLOR_DOT,
-                  }            
-              }
-          }        
-      });    
 
       branchA
         .commit({
