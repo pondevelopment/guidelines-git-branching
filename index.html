@@ -62,7 +62,7 @@
     const STYLE_BRANCH_D_COLOR_DOT = "#DBD5B5";
 
 		const HASH_MERGE_SPRINT_ONE = "merge-sprint-one";
-    
+	  const HASH_MERGE_BRANCH_A = "merge-branch-a";
   
     // Get the graph container HTML element.
     const graphContainer = document.getElementById("graph-container");
@@ -90,7 +90,7 @@
       let main;
       let dev;
       let sprintOne, sprintTwo;
-      let branchA, branchB, branchC;
+      let branchA, branchB, branchC, branchD;
       const showBody = true;
 
       [
@@ -575,9 +575,71 @@
             });    
 
           },
-          (showBody) => {
+          (showBody) => { // Step 18
+
+            branchA
+              .commit({
+                subject: "-removed some code #JIRA-223",
+                author: author.zeger,
+                style: {
+                    color: STYLE_BRANCH_A_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_A_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_A_COLOR_DOT,
+                    }
+                }
+              });       
+
+            
+            sprintTwo.merge({
+                branch: branchA,
+                commitOptions: {
+                    subject: "Merge 'Feature #JIRA-223' to sprint 2 branch",
+                    author: author.zeger,
+										body: showBody && `
+                      Issue resolved and coding done, merge changes to sprint branch
+										`,
+                    hash: HASH_MERGE_BRANCH_A,
+                    style: {
+                        color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        message: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+                        },
+                        dot: {
+                            color: STYLE_BRANCH_SPRINT_COLOR_DOT,
+                        }            
+                    }
+                }
+            });   
+
           },
-          (showBody) => {
+          (showBody) => { // Step 19
+      
+            branchD = gitgraph.branch({
+              name: "Feature #JIRA-228", from: HASH_MERGE_BRANCH_A,
+              style: { color: STYLE_BRANCH_D_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
+            });
+
+            branchD
+              .commit({
+                subject: "-removed some code #JIRA-228",
+                author: author.zeger,
+                body: showBody && `
+                  New issue picked up, branch from sprint branch to start coding
+                `,
+                style: {
+                    color: STYLE_BRANCH_D_COLOR_TEXT,
+                    message: {
+                        color: STYLE_BRANCH_D_COLOR_TEXT,
+                    },
+                    dot: {
+                        color: STYLE_BRANCH_D_COLOR_DOT,
+                    }
+                }
+              });    
+    
           },
           (showBody) => {
           },
@@ -589,83 +651,16 @@
 
       return;
 
-      // parentCommitHash
-
-
-
-       
-
-
-
-
-
-
-
-
+      /**
+       * Todo steps below
+       */
 
 
  
 
-
-
-
-
-
-      branchA
-        .commit({
-          subject: "-removed some code #JIRA-223",
-          author: author.zeger,
-          style: {
-              color: STYLE_BRANCH_A_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_A_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_A_COLOR_DOT,
-              }
-          }
-        });       
-
-      const HASH_MERGE_BRANCH_A = "merge-branch-a";
-      sprintTwo.merge({
-          branch: branchA,
-          commitOptions: {
-              subject: "Merge 'Feature #JIRA-223' to sprint 2 branch",
-              author: author.zeger,
-              hash: HASH_MERGE_BRANCH_A,
-              style: {
-                  color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  message: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
-                  },
-                  dot: {
-                      color: STYLE_BRANCH_SPRINT_COLOR_DOT,
-                  }            
-              }
-          }
-      });    
-
       // Dev cycle 3    
 
-      const branchD = gitgraph.branch({
-        name: "Feature #JIRA-228", from: HASH_MERGE_BRANCH_A,
-        style: { color: STYLE_BRANCH_D_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
-      });
 
-      branchD
-        .commit({
-          subject: "-removed some code #JIRA-228",
-          author: author.zeger,
-          style: {
-              color: STYLE_BRANCH_D_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_D_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_D_COLOR_DOT,
-              }
-          }
-        });    
 
       branchB
         .commit({
