@@ -343,8 +343,8 @@
               }
             });
 
-          },
-          (showBody) => {
+          }, 
+          (showBody) => { // Step 11
 
             // Dev cycle 2
             branchA
@@ -381,6 +381,9 @@
               .commit({
                 subject: "*fixed some code #JIRA-225",
                 author: author.jos,
+                body: showBody && `
+                  Developers working on their tasks and commiting the code
+                `,
                 style: {
                     color: STYLE_BRANCH_C_COLOR_TEXT,
                     message: {
@@ -398,8 +401,11 @@
             sprintTwo.merge({
                 branch: branchC,
                 commitOptions: {
-                    subject: "Merge 'Feature #JIRA-223' to sprint 2 branch",
+                    subject: "Merge 'Task #JIRA-225' to sprint 2 branch",
                     author: author.jos,
+                    body: showBody && `
+                      Task done, code is merged back to sprint branch
+                    `,
                     style: {
                         color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
                         message: {
