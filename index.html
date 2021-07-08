@@ -40,9 +40,9 @@
 			</div>
 		</header>
 
-		<main class="container">
+		<main class="w-auto container">
 			<h1>Branching and merging, a visual story</h1>
-			<p>
+			<p class="row col-auto">
 				<!-- DOM element in which we'll mount our graph -->
 				<ol id="graph-list" class="list-group list-group-numbered">
 				</ol>
@@ -107,10 +107,11 @@
       graphElement.id = 'graph-container-' + idx;
 
       let textElement = graphElement.cloneNode();
+      textElement.className = 'w-25 text-start';
       textElement.id = 'text-container-' + idx;
 
       let rootElement = document.createElement("li");
-      rootElement.className = "list-group-item text-white bg-dark";
+      rootElement.className = "list-group-item text-white bg-dark d-flex justify-content-between";
       rootElement.appendChild(graphElement);
       rootElement.appendChild(textElement);
 
