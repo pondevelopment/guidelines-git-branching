@@ -396,7 +396,7 @@
               });        
 
           },
-          (showBody) => {
+          (showBody) => { // Step 12
 
             sprintTwo.merge({
                 branch: branchC,
@@ -419,7 +419,7 @@
             });      
 
           },
-          (showBody) => {
+          (showBody) => { // Step 13
 
             branchA.merge({
                 branch: sprintTwo,
@@ -443,6 +443,9 @@
                 commitOptions: {
                     subject: "Merge sprint 2",
                     author: author.zeger,
+                    body: showBody && `
+                      Merge the changes back from the sprint branch to the issues branches
+                    `,
                     style: {
                         color: STYLE_BRANCH_B_COLOR_TEXT,
                         message: {
@@ -456,7 +459,7 @@
             });  
 
           },
-          (showBody) => {
+          (showBody) => { // Step 14
 
             // Hotfix
             dev
