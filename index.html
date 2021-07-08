@@ -466,6 +466,9 @@
               .commit({
                 subject: "*hotfix",
                 author: author.jos,
+                body: showBody && `
+                  Problem on live environment, hotfix build and tested on dev branch
+                `,
                 style: {
                     color: STYLE_BRANCH_DEV_COLOR_TEXT,
                     message: {
@@ -478,13 +481,16 @@
               }); 
 
           },
-          (showBody) => {
+          (showBody) => { // Step 15
 
             main.merge({
                 branch: dev,
                 commitOptions: {
                     subject: "Merge hotfix to main branch",
                     author: author.jos,
+                    body: showBody && `
+                      Merge hotfix to main branch and tag with new version
+                    `,
                 }        
             }).tag("v1.1.0");    
 
