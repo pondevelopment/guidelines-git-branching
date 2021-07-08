@@ -75,7 +75,7 @@
         jos: "Dennis Verweij <dennis.verweij@pon.com>",
     }
 
-    for (let idx = 1; idx < 9; idx++) {
+    for (let idx = 1; idx < 11; idx++) {
       let graphContainerClone = document.createElement("li");
       graphContainerClone.id = 'graph-container-' + idx;
       graphContainerClone.class = 'graph-container'
@@ -296,15 +296,55 @@
         },
         (showBody) => {
 
-          branchB = gitgraph.branch({
+          branchB = sprintTwo.branch({
             name: "Bugfix #JIRA-224", from: HASH_MERGE_SPRINT_ONE,
             style: { color: STYLE_BRANCH_B_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
           });
+
+          branchB
+            .commit({
+              subject: "+wrote some code #JIRA-224",
+							body: showBody && `
+						  	Separate branch for sprint 2 to fix a bug
+							`,
+              author: author.berry,
+              style: {
+                color: STYLE_BRANCH_B_COLOR_TEXT,
+                message: {
+                  color: STYLE_BRANCH_B_COLOR_TEXT,
+                },
+                dot: {
+                  color: STYLE_BRANCH_B_COLOR_DOT,
+                }
+              }
+            });
           
-          branchC = gitgraph.branch({
+				},
+				(showBody) => {
+
+          branchC = sprintTwo.branch({
             name: "Task #JIRA-225", from: HASH_MERGE_SPRINT_ONE,
             style: { color: STYLE_BRANCH_C_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH },
           });
+
+          branchC
+            .commit({
+              subject: "+wrote some code #JIRA-225",
+              body: showBody && `
+                Separate branch for sprint 2 to work on a task
+              `,
+              author: author.jos,
+              style: {
+                color: STYLE_BRANCH_C_COLOR_TEXT,
+                message: {
+                  color: STYLE_BRANCH_C_COLOR_TEXT,
+                },
+                dot: {
+                  color: STYLE_BRANCH_C_COLOR_DOT,
+                }
+              }
+            });
+
         }
       ].slice(0, step).map((x, index) => x(index == step - 1));
 
@@ -318,35 +358,8 @@
 
 
 
-      branchB
-        .commit({
-          subject: "+wrote some code #JIRA-224",
-          author: author.berry,
-          style: {
-              color: STYLE_BRANCH_B_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_B_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_B_COLOR_DOT,
-              }
-          }
-        });  
 
-      branchC
-        .commit({
-          subject: "+wrote some code #JIRA-225",
-          author: author.jos,
-          style: {
-              color: STYLE_BRANCH_C_COLOR_TEXT,
-              message: {
-                  color: STYLE_BRANCH_C_COLOR_TEXT,
-              },
-              dot: {
-                  color: STYLE_BRANCH_C_COLOR_DOT,
-              }
-          }
-        });  
+
 
       // Dev cycle 2
       branchA
