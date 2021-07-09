@@ -110,7 +110,7 @@ function buildGraph(graphContainer, textContainer, step) {
       main = gitgraph.branch({
         name: 'main',
         style: {
-          color: STYLE_BRANCH_MAIN_COLOR_TEXT,
+          color: STYLE_BRANCH_MAIN_COLOR,
           lineWidth: STYLE_BRANCH_MAIN_LINE_WIDTH,
         },
       });
@@ -134,9 +134,10 @@ function buildGraph(graphContainer, textContainer, step) {
       });
 
       textContainer.innerHTML = `
-        Start of the project is here. Setup a git repository, check for license and
-        add the developers. Setup the main branch, this will be the branch containing 
-        the lastest stable version of the software.
+        Start of the project is here. Setup a git repository, check 
+        for license and add the developers. Setup the main branch, 
+        this will be the branch containing the lastest stable version
+        of the software.
       `;
     },
     (showBody) => {
@@ -151,8 +152,8 @@ function buildGraph(graphContainer, textContainer, step) {
       dev.commit({
         subject: 'Development branch',
         body: showBody && `
-                      Create a seperate branch which will be used by the developers
-                    `,
+            Create a seperate branch which will be used by the developers
+        `,
         author: author.zeger,
         style: {
           color: STYLE_BRANCH_DEV_COLOR_TEXT,
@@ -166,15 +167,16 @@ function buildGraph(graphContainer, textContainer, step) {
       });
 
       textContainer.innerHTML = `
-        Setup the development branch, this will be the branch containing the version
-        which will contain the results of a finished sprint, ready to be tested.
-                `;
+        Setup the development branch, this will be the branch 
+        ontaining the version which will contain the results
+        of a finished sprint, ready to be tested.
+      `;
     },
     (showBody) => {
       sprintOne = dev.branch({
         name: 'Sprint 1',
         style: {
-          color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
+          color: STYLE_BRANCH_SPRINT_COLOR,
           lineWidth: STYLE_BRANCH_SPRINT_LINE_WIDTH,
           message: {
             color: STYLE_BRANCH_SPRINT_COLOR_TEXT,
@@ -195,10 +197,11 @@ function buildGraph(graphContainer, textContainer, step) {
       });
 
       textContainer.innerHTML = `
-        For a sprint a seperate branch is created, this will be used to merge all the
-        code the developers are writing for this specific sprint. This branch is based on the 
-        latest version of the development branch. Note that commit '0' is the actual creation
-        of the branch.
+        For a sprint a seperate branch is created, this will
+        be used to merge all the code the developers are writing
+        for this specific sprint. This branch is based on the 
+        latest version of the development branch. Note that
+        commit '0' is the actual creation of the branch.
       `;
     },
     (showBody) => {
@@ -217,17 +220,17 @@ function buildGraph(graphContainer, textContainer, step) {
             subject: 'Fixed JIRA-125',
             dotText: '3',
             body: showBody && `
-                        Developers working on the current sprint and commit their code
-                      `,
+              Developers working on the current sprint and commit their code
+            `,
             author: author.jos,
           })
       ;
 
       textContainer.innerHTML = `
-        Sprint 1 is a simple sprint, several developers have been working on 3 issues and
-        commit their results one by one to the sprint branch. Any merge issues have to 
-        be resolved by the developer.
-                `;
+        Sprint 1 is a simple sprint, several developers have been
+        working on 3 issues and commit their results one by one to the
+        sprint branch. Any merge issues have to  be resolved by the developer.
+      `;
     },
     (showBody) => {
       dev.merge({
@@ -235,8 +238,8 @@ function buildGraph(graphContainer, textContainer, step) {
         commitOptions: {
           subject: 'Merge sprint 1',
           body: showBody && `
-                          Work is done on the sprint, merge it back to dev
-                        `,
+            Work is done on the sprint, merge it back to dev
+          `,
           hash: HASH_MERGE_SPRINT_ONE,
           author: author.jos,
           style: {
@@ -298,7 +301,10 @@ function buildGraph(graphContainer, textContainer, step) {
     (showBody) => {
       branchA = sprintTwo.branch({
         name: 'Feature JIRA-223', from: HASH_MERGE_SPRINT_ONE,
-        style: {color: STYLE_BRANCH_A_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH},
+        style: {
+          color: STYLE_BRANCH_A_COLOR,
+          lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH,
+        },
       });
 
       // Dev cycle 1
@@ -323,15 +329,18 @@ function buildGraph(graphContainer, textContainer, step) {
     (showBody) => {
       branchB = sprintTwo.branch({
         name: 'Bugfix JIRA-224', from: HASH_MERGE_SPRINT_ONE,
-        style: {color: STYLE_BRANCH_B_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH},
+        style: {
+          color: STYLE_BRANCH_B_COLOR,
+          lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH,
+        },
       });
 
       branchB
           .commit({
             subject: '+wrote some code JIRA-224',
             body: showBody && `
-                          Separate branch for sprint 2 to fix a bug
-                        `,
+                Separate branch for sprint 2 to fix a bug
+            `,
             author: author.berry,
             style: {
               color: STYLE_BRANCH_B_COLOR_TEXT,
@@ -347,7 +356,10 @@ function buildGraph(graphContainer, textContainer, step) {
     (showBody) => {
       branchC = sprintTwo.branch({
         name: 'Task JIRA-225', from: HASH_MERGE_SPRINT_ONE,
-        style: {color: STYLE_BRANCH_C_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH},
+        style: {
+          color: STYLE_BRANCH_C_COLOR,
+          lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH,
+        },
       });
 
       branchC
@@ -463,8 +475,8 @@ function buildGraph(graphContainer, textContainer, step) {
           subject: 'Merge sprint 2',
           author: author.zeger,
           body: showBody && `
-                  Merge the changes back from the sprint branch to the issues branches
-                `,
+            Merge the changes back from the sprint branch to the issues branches
+          `,
           style: {
             color: STYLE_BRANCH_B_COLOR_TEXT,
             message: {
@@ -480,7 +492,10 @@ function buildGraph(graphContainer, textContainer, step) {
     (showBody) => { // Step 14
       branchHotfix = main.branch({
         name: 'hotfix',
-        style: {color: STYLE_BRANCH_HOTFIX_COLOR, lineWidth: STYLE_BRANCH_HOTFIX_LINE_WIDTH},
+        style: {
+          color: STYLE_BRANCH_HOTFIX_COLOR,
+          lineWidth: STYLE_BRANCH_HOTFIX_LINE_WIDTH,
+        },
       });
 
       // Hotfix
@@ -489,7 +504,8 @@ function buildGraph(graphContainer, textContainer, step) {
             subject: '*hotfix',
             author: author.jos,
             body: showBody && `
-              Problem on live environment, hotfix build and tested on hotfix branch
+              Problem on live environment, hotfix build and
+              tested on hotfix branch
             `,
             style: {
               color: STYLE_BRANCH_HOTFIX_COLOR_TEXT,
@@ -652,7 +668,10 @@ function buildGraph(graphContainer, textContainer, step) {
     (showBody) => { // Step 20
       branchD = gitgraph.branch({
         name: 'Feature JIRA-228', from: HASH_MERGE_BRANCH_A,
-        style: {color: STYLE_BRANCH_D_COLOR, lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH},
+        style: {
+          color: STYLE_BRANCH_D_COLOR,
+          lineWidth: STYLE_BRANCH_FEATURE_LINE_WIDTH,
+        },
       });
 
       branchD
@@ -709,8 +728,9 @@ function buildGraph(graphContainer, textContainer, step) {
             subject: '*bugfix JIRA-228',
             author: author.zeger,
             body: showBody && `
-                              Developers working on their issues and committing to the issue branch
-                            `,
+              Developers working on their issues and committing
+              to the issue branch
+            `,
             style: {
               color: STYLE_BRANCH_D_COLOR_TEXT,
               message: {
@@ -746,9 +766,9 @@ function buildGraph(graphContainer, textContainer, step) {
           subject: 'Merge hotfix to feature branch',
           author: author.jos,
           body: showBody && `
-                                      Before the feature branches can commit to the sprint branch they
-                  must merge all the changes to their own branch.
-                                    `,
+            Before the feature branches can commit to the sprint branch they
+            must merge all the changes to their own branch.
+          `,
           style: {
             color: STYLE_BRANCH_C_COLOR_TEXT,
             message: {
@@ -762,10 +782,10 @@ function buildGraph(graphContainer, textContainer, step) {
       });
 
       textContainer.innerHTML = `
-          The developers of the bugfix and task branches must merge the code from
-          the sprint to their own code, and fix any merge issues locally, before
-          they can merge their final code to the sprint branch.
-        `;
+        The developers of the bugfix and task branches must merge the code from
+        the sprint to their own code, and fix any merge issues locally, before
+        they can merge their final code to the sprint branch.
+      `;
     },
     (showBody) => { // Step 23
       sprintTwo.merge({
