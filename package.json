@@ -1,0 +1,23 @@
+{
+  "name": "guidelines-git-branching",
+  "version": "1.0.0",
+  "description": "Git branching, a visual storyline",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pondigitalsolutions/guidelines-git-branching.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/pondigitalsolutions/guidelines-git-branching/issues"
+  },
+  "homepage": "https://github.com/pondigitalsolutions/guidelines-git-branching#readme",
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
