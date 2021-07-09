@@ -258,6 +258,7 @@
 
 		      sprintOne.commit({
             subject: "Development branch",
+            dotText: '0',
             body: showBody && `
               Create a seperate branch for "Sprint 1"
             `,
@@ -267,7 +268,8 @@
           textContainer.innerHTML = `
             For a sprint a seperate branch is created, this will be used to merge all the
             code the developers are writing for this specific sprint. This branch is based on the 
-            latest version of the development branch.
+            latest version of the development branch. Note that commit '0' is the actual creation
+            of the branch.
           `
 
         },
