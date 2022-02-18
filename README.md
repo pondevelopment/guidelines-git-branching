@@ -1,3 +1,12 @@
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=bugs)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
+
 # Pon guideines for git branching
 
 A visual storyline is shown [here](https://guidelines-git-branching.pages.dev/).
