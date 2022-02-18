@@ -802,5 +802,10 @@ function buildGraph(graphContainer, textContainer, step) {
     },
     (showBody) => { // Step 28
     },
-  ].slice(0, step).map((x, index) => x(index == step - 1));
+  ].slice(0, step).forEach((gitAction, index) => gitAction(index == step - 1));
+  /**
+   * We want to show the git story step by step, so slice the array for each step
+   * [0], [0, 1], [0, 1, 2] etc. - next call the draw function on the final git 
+   * action for that step
+   */
 }
