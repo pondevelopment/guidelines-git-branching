@@ -7,11 +7,6 @@ const STYLE_BRANCH_MAIN_COLOR = '#888888';
 const STYLE_BRANCH_MAIN_COLOR_TEXT = '#888888';
 const STYLE_BRANCH_MAIN_COLOR_DOT = '#888888';
 
-const STYLE_BRANCH_DEV_LINE_WIDTH = 8;
-const STYLE_BRANCH_DEV_COLOR = '#F8333C';
-const STYLE_BRANCH_DEV_COLOR_TEXT = '#F8333C';
-const STYLE_BRANCH_DEV_COLOR_DOT = '#F8333C';
-
 const STYLE_BRANCH_SPRINT_LINE_WIDTH = 6;
 const STYLE_BRANCH_SPRINT_COLOR = '#AAFF00';
 const STYLE_BRANCH_SPRINT_COLOR_TEXT = '#AAFF00';
@@ -156,7 +151,7 @@ function buildGraph(graphContainer, textContainer, step) {
       });
 
       sprintOne.commit({
-        subject: 'Development branch',
+        subject: 'Sprint branch',
         dotText: '0',
         body: showBody && `
           Create a seperate branch for "Sprint 1"
@@ -168,7 +163,7 @@ function buildGraph(graphContainer, textContainer, step) {
         For a sprint a seperate branch is created, this will
         be used to merge all the code the developers are writing
         for this specific sprint. This branch is based on the 
-        latest version of the development branch. Note that
+        latest version of the main branch. Note that
         commit '0' is the actual creation of the branch.
       `;
     },
@@ -197,7 +192,7 @@ function buildGraph(graphContainer, textContainer, step) {
       textContainer.innerHTML = `
         Sprint 1 is a simple sprint, several developers have been
         working on 3 issues and commit their results one by one to the
-        sprint branch. Any merge issues have to  be resolved by the developer.
+        sprint branch. Any merge issues have to be resolved by the developer.
       `;
     },
     (showBody) => {
@@ -206,38 +201,25 @@ function buildGraph(graphContainer, textContainer, step) {
         commitOptions: {
           subject: 'Merge sprint 1',
           body: showBody && `
-            Work is done on the sprint, merge it back to dev
+            Work is done on the sprint, test the branch and merge it back to main
           `,
           hash: HASH_MERGE_SPRINT_ONE,
           author: author.jos,
           style: {
-            color: STYLE_BRANCH_DEV_COLOR_TEXT,
+            color: STYLE_BRANCH_MAIN_COLOR_TEXT,
             message: {
-              color: STYLE_BRANCH_DEV_COLOR_TEXT,
+              color: STYLE_BRANCH_MAIN_COLOR_TEXT,
             },
             dot: {
-              color: STYLE_BRANCH_DEV_COLOR_DOT,
+              color: STYLE_BRANCH_MAIN_COLOR_DOT,
             },
           },
         },
-      });
+      }).tag('v1.0.0');;
 
       textContainer.innerHTML = `
       
       `;
-    },
-    (showBody) => {
-      mergeResult = main.merge({
-        branch: dev,
-        commitOptions: {
-          subject: 'Merge dev to main',
-          body: showBody && `
-            Dev has been tested and approved, merge it to main.
-            Tag the main branch with the new version of the software
-          `,
-          author: author.jos,
-        },
-      }).tag('v1.0.0');
     },
     (showBody) => {
       /**
@@ -500,7 +482,7 @@ function buildGraph(graphContainer, textContainer, step) {
     },
     (showBody) => { // Step 17
       sprintTwo.merge({
-        branch: dev,
+        branch: main,
         commitOptions: {
           subject: 'Merge hotfix to sprint 2 branch',
           author: author.jos,
@@ -800,15 +782,15 @@ function buildGraph(graphContainer, textContainer, step) {
           subject: 'Merge sprint 2',
           author: author.jos,
           body: showBody && `
-                    Test the sprint branch and merge to dev
+                    Test the sprint branch and merge to main
                                     `,
           style: {
-            color: STYLE_BRANCH_DEV_COLOR_TEXT,
+            color: STYLE_BRANCH_MAIN_COLOR_TEXT,
             message: {
-              color: STYLE_BRANCH_DEV_COLOR_TEXT,
+              color: STYLE_BRANCH_MAIN_COLOR_TEXT,
             },
             dot: {
-              color: STYLE_BRANCH_DEV_COLOR_DOT,
+              color: STYLE_BRANCH_MAIN_COLOR_DOT,
             },
           },
         },
