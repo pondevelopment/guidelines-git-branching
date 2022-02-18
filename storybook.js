@@ -70,7 +70,6 @@ function buildGraph(graphContainer, textContainer, step) {
   let customTemplate;
   let gitgraph;
   let main;
-  let dev;
   let sprintOne; let sprintTwo;
   let branchA; let branchB; let branchC; let branchD; let branchHotfix;
 
@@ -215,7 +214,7 @@ function buildGraph(graphContainer, textContainer, step) {
             },
           },
         },
-      }).tag('v1.0.0');;
+      }).tag('v1.0.0');
 
       textContainer.innerHTML = `
       
@@ -794,7 +793,7 @@ function buildGraph(graphContainer, textContainer, step) {
             },
           },
         },
-      }).tag('v2.0.0');;
+      }).tag('v2.0.0');
     },
     (showBody) => { // Step 26
     },
