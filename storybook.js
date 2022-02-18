@@ -141,39 +141,7 @@ function buildGraph(graphContainer, textContainer, step) {
       `;
     },
     (showBody) => {
-      dev = main.branch({
-        name: 'dev',
-        style: {
-          color: STYLE_BRANCH_DEV_COLOR,
-          lineWidth: STYLE_BRANCH_DEV_LINE_WIDTH,
-        },
-      });
-
-      dev.commit({
-        subject: 'Development branch',
-        body: showBody && `
-            Create a seperate branch which will be used by the developers
-        `,
-        author: author.zeger,
-        style: {
-          color: STYLE_BRANCH_DEV_COLOR_TEXT,
-          message: {
-            color: STYLE_BRANCH_DEV_COLOR_TEXT,
-          },
-          dot: {
-            color: STYLE_BRANCH_DEV_COLOR_DOT,
-          },
-        },
-      });
-
-      textContainer.innerHTML = `
-        Setup the development branch, this will be the branch 
-        ontaining the version which will contain the results
-        of a finished sprint, ready to be tested.
-      `;
-    },
-    (showBody) => {
-      sprintOne = dev.branch({
+      sprintOne = main.branch({
         name: 'Sprint 1',
         style: {
           color: STYLE_BRANCH_SPRINT_COLOR,
@@ -233,7 +201,7 @@ function buildGraph(graphContainer, textContainer, step) {
       `;
     },
     (showBody) => {
-      dev.merge({
+      main.merge({
         branch: sprintOne,
         commitOptions: {
           subject: 'Merge sprint 1',
@@ -529,27 +497,6 @@ function buildGraph(graphContainer, textContainer, step) {
                 `,
         },
       }).tag('v1.1.0');
-    },
-    (showBody) => { // Step 16
-      dev.merge({
-        branch: main,
-        commitOptions: {
-          subject: 'Merge hotfix to dev branch',
-          author: author.jos,
-          body: showBody && `
-                  Merge hotfix to dev branch
-                `,
-          style: {
-            color: STYLE_BRANCH_DEV_COLOR_TEXT,
-            message: {
-              color: STYLE_BRANCH_DEV_COLOR_TEXT,
-            },
-            dot: {
-              color: STYLE_BRANCH_DEV_COLOR_DOT,
-            },
-          },
-        },
-      });
     },
     (showBody) => { // Step 17
       sprintTwo.merge({
@@ -847,7 +794,7 @@ function buildGraph(graphContainer, textContainer, step) {
         `;
     },
     (showBody) => { // Step 24
-      dev.merge({
+      main.merge({
         branch: sprintTwo,
         commitOptions: {
           subject: 'Merge sprint 2',
@@ -865,19 +812,7 @@ function buildGraph(graphContainer, textContainer, step) {
             },
           },
         },
-      });
-    },
-    (showBody) => { // Step 25
-      main.merge({
-        branch: dev,
-        commitOptions: {
-          subject: 'Merge dev to main',
-          author: author.jos,
-          body: showBody && `
-                  Merge dev to main and tag with new version
-                `,
-        },
-      }).tag('v2.0.0');
+      }).tag('v2.0.0');;
     },
     (showBody) => { // Step 26
     },
