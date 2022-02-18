@@ -1,5 +1,7 @@
 # Pon guideines for git branching
 
+A visual storyline is shown [here](https://guidelines-git-branching.pages.dev/).
+
 ## Branching, merging and tagging
 
 ### Main branch
