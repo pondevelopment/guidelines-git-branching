@@ -63,6 +63,8 @@ setup separate feature branches
 
 **4. Documentation Branches:** Are used for writing, updating, or correcting documentation. Use the prefix `docs/`. For example, `docs/okta-setup`.
 
+**5. Chore Branches:** Are used for maintenance tasks, build processes, or other non-user-facing changes. Use the prefix `chore/`. For example, `chore/update-okta-dependencies`.
+
 ### Squashing or merging
 
 Merging is preferred (merging "unless" policy)
