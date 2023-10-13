@@ -43,7 +43,7 @@ setup separate feature branches
 
 **1. Lowercase and hyphen-separated:** Keep branch names in lowercase and separate words with hyphens. For example, use `feature/booking-tool` or `bugfix/cookie-banner-refresh`.
 
-**2. Alphanumeric characters:** Use only alphanumeric characters (letters a-z, numbers 0–9) and hyphens. Avoid using punctuation, spaces, underscores, or any other non-alphanumeric characters.
+**2. Alphanumeric characters:** Use only alphanumeric characters (letters a-z, numbers 0–9) and hyphens. Do not use punctuation, spaces, underscores, or any other non-alphanumeric characters. Your input must conform to the following regex pattern: (feature|bugfix|hotfix|docs|chore)/[a-z0-9]+(-([a-z0-9])+)*[a-z0-9]+.
 
 **3. No consecutive hyphens:** Do not use consecutive hyphens, `feature--booking-tool` can be confusing and hard to read.
 
