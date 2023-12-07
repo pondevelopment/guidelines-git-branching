@@ -39,7 +39,31 @@ setup separate feature branches
 
 ### Branches
 
-Branch names clearly communicate purpose and should contain a reference to issue tracking system if relevant
+***Basic Rules***
+
+**1. Lowercase and hyphen-separated:** Keep branch names in lowercase and separate words with hyphens. For example, use `feature/booking-tool` or `bugfix/cookie-banner-refresh`.
+
+**2. Alphanumeric characters:** Use only alphanumeric characters (letters a-z, numbers 0–9) and hyphens. Do not use punctuation, spaces, underscores, or any other non-alphanumeric characters. Your input must conform to the following regex pattern: (feature|bugfix|hotfix|docs|chore)/[a-z0-9]+(-([a-z0-9])+)*[a-z0-9]+.
+
+**3. No consecutive hyphens:** Do not use consecutive hyphens, `feature--booking-tool` can be confusing and hard to read.
+
+**4. No Trailing Hyphens:** Ensure that your branch name does not end with a hyphen. For example, `feature-booking-tool-` is not considered a good practice.
+
+**5. Descriptive:** Make sure the branch name is both descriptive and concise, ideally reflecting the work carried out on the branch
+
+**6. Ticket Numbers:** When possible, include the ticket number from a project management tool like Jira or issue tracking system in the branch name.
+
+***Branch Prefixes***
+
+**1. Feature Branches:** Are used for developing new features. Use the prefix `feature/`. For example, `feature/booking-tool`.
+
+**2. Bugfix Branches:** Are used to fix bugs in the code. Use the prefix `bugfix/`. For example, `bugfix/double-cookiebanner-refresh`.
+
+**3. Hotfix Branches:** Are made directly from the main branch to fix critical bugs in the production environment. Use the prefix `hotfix/`. For example, `hotfix/okta-issue`.
+
+**4. Documentation Branches:** Are used for writing, updating, or correcting documentation. Use the prefix `docs/`. For example, `docs/okta-setup`.
+
+**5. Chore Branches:** Are used for maintenance tasks, build processes, or other non-user-facing changes. Use the prefix `chore/`. For example, `chore/update-okta-dependencies`.
 
 ### Squashing or merging
 
