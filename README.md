@@ -7,7 +7,7 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=pondigitalsolutions_guidelines-git-branching&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=pondigitalsolutions_guidelines-git-branching)
 
-# Pon guideines for git branching
+# Pon guidelines for git branching
 
 A visual storyline is shown [here](https://guidelines-git-branching.pages.dev/).
 
@@ -49,4 +49,3 @@ Merging is preferred (merging "unless" policy)
 
 These guidelines should not impede the handling of emergencies. Forced commits are allowed by exception only
 and branch(es) must be fixed at the firs available opportunity.
-
